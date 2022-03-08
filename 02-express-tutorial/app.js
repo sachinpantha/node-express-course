@@ -39,17 +39,34 @@
 
 
 //EXPRESS INFO
-const express= require('express');
-const app=express()
+// const express= require('express');
+// const app=express()
+// app.get('/',(req,res)=>{
+//  res.status(200).send('Render home page here');
+// })
+// app.get('/about',(req,res)=>{
+//     res.status(200).send('Render About page here')
+// })
+// //RETURNING 404
+// app.all('*',(req,res)=>{
+//     res.status(404).send(`<h1>Error 404 Page not found sed</h1>`);
+// })
+// app.listen(5000,()=>{
+//     console.log('server is listenting to port 5000');
+// });
+
+
+                  //HANDLING NAVBAR APP VIA EXPRESS-JS
+const express=require('express');
+const path=require('path');
+const app=express();
+app.use(express.static('./public'));  //PUT ALL STATIC CSS LOGO FILE OVER HERE BY CREATING FOLDER
 app.get('/',(req,res)=>{
- res.send('Render home page here');
+    res.sendFile(path.resolve(__dirname,'./navbar-app/index.html'))
 })
-app.get('/about',(req,res)=>{
-    res.send('Render About page here')
-})
-app.get('/about',(req,res)=>{
-    res.send('Render About page here')
+app.all('*',(req,res)=>{
+    res.status(404).send('Resource not found');
 })
 app.listen(5000,()=>{
-    console.log('server is listenting to port 5000');
-});
+    console.log('Server is listening to port 5000');
+})
