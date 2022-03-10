@@ -37,7 +37,6 @@
 //     }
 // }).listen(5000);
 
-
 //EXPRESS INFO
 // const express= require('express');
 // const app=express()
@@ -55,18 +54,34 @@
 //     console.log('server is listenting to port 5000');
 // });
 
+//HANDLING NAVBAR APP VIA EXPRESS-JS
+// const express=require('express');
+// const path=require('path');
+// const app=express();
+// app.use(express.static('./public'));  //PUT ALL STATIC CSS LOGO FILE OVER HERE BY CREATING FOLDER
+// // app.get('/',(req,res)=>{
+// //     res.sendFile(path.resolve(__dirname,'./navbar-app/index.html'))
+// // })   //HTML FILE IS ALSO A STATIC FILE
+// app.all('*',(req,res)=>{
+//     res.status(404).send('Resource not found');
+// })
+// app.listen(5000,()=>{
+//     console.log('Server is listening to port 5000');
+// })
 
-                  //HANDLING NAVBAR APP VIA EXPRESS-JS
-const express=require('express');
-const path=require('path');
-const app=express();
-app.use(express.static('./public'));  //PUT ALL STATIC CSS LOGO FILE OVER HERE BY CREATING FOLDER
-app.get('/',(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'./navbar-app/index.html'))
-})
-app.all('*',(req,res)=>{
-    res.status(404).send('Resource not found');
-})
-app.listen(5000,()=>{
-    console.log('Server is listening to port 5000');
-})
+// const express = require("express");
+// const app = express();
+// const { products } = require("./data");
+// app.get("/", (req, res) => {
+//   res.send('<h1>Home Page</h1><a href="/api/products">Products</a>');
+// });
+// app.get("/api/products", (req, res) => {
+//   const newProducts = products.map((product) => {
+//     const { name, id, image } = product;
+//     return { name, id, image }; //THIS IS WHEN YOU FILTER OUT THE JSON
+//   });
+//   res.json(newProducts);
+// });
+// app.listen(5000, (req, res) => {
+//   console.log("Server is listening to port 5000");
+// });
