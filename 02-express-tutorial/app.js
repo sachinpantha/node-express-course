@@ -82,6 +82,39 @@
 //   });
 //   res.json(newProducts);
 // });
+// app.get("/api/products/1", (req, res) => {
+//   const singleProduct = products.find((product) => product.id == 1);
+//   res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
+// });
 // app.listen(5000, (req, res) => {
 //   console.log("Server is listening to port 5000");
 // });
+
+
+const express = require("express");
+const app = express();
+const { products } = require("./data");
+app.get("/", (req, res) => {
+  res.send('<h1>Home Page</h1><a href="/api/products/:ProductID">Products</a>');
+});
+app.get("/api/products", (req, res) => {
+  const newProducts = products.map((product) => {
+    const { name, id, image } = product;
+    return { name, id, image }; //THIS IS WHEN YOU FILTER OUT THE JSON
+  });
+  res.json(newProducts);
+});
+app.get("/api/products/:ProductID", (req, res) => {
+  console.log(req);
+  // console.log(req.params); (OPTIONAL)
+
+  const {ProductID}=req.params;
+  const singleProduct = products.find((product) => product.id === Number(ProductID));
+  if (!singleProduct) {
+    return res.status(404).send('The product never existed vro');
+  }
+  res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
+});
+app.listen(5000, (req, res) => {
+  console.log("Server is listening to port 5000");
+});

@@ -1,7 +1,7 @@
 const products = [
   {
     id: 1,
-    name: 'albany sofa',
+    name: 'Sarad Gywali',
     image:
       'https://dl.airtable.com/.attachments/6ac7f7b55d505057317534722e5a9f03/9183491e/product-3.jpg',
     price: 39.95,
