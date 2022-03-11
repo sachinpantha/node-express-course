@@ -115,6 +115,17 @@ app.get("/api/products/:ProductID", (req, res) => {
   }
   res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
 });
+// app.get('/api/products/:productID/reviews/:reviewID',(req,res)=>{
+//     console.log(req.params);
+//     res.send('Hello HELlO');
+// })
+
+// (((((((((((Route params help to access dynamically)))))))))))
+app.get('/profile/:id',(req,res)=>{
+    console.log(req.params.id);
+    res.send('you requested '+ req.params.id);
+})
+// ((((((((((()))))))))))
 app.listen(5000, (req, res) => {
   console.log("Server is listening to port 5000");
 });
