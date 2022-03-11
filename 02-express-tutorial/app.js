@@ -95,7 +95,7 @@
 
 const express = require("express");
 const app = express();
-// const { products } = require("./data");
+const { products } = require("./data");
 // app.get("/", (req, res) => {
 //   res.send('<h1>Home Page</h1><a href="/api/products/:ProductID">Products</a>');
 // });
@@ -141,7 +141,7 @@ const app = express();
 //         SortedProducts=SortedProducts.slice(0,Number(limit));
 //     }
 //     if (SortedProducts.length<1) {
-//         return res.status(200).json({success:true,data:[]})
+//         return res.status(200).send(`${search} not found`);
 //       // res.status(200).send('No any products matched to your search')
 //     }
 //     return res.status(200).json(SortedProducts);
@@ -181,9 +181,9 @@ const authorize=require('./authorize');
 app.get('/',(req,res)=>{
   return res.send('Home page');
 })
-app.use([logger,authorize]);  //THIS WILL HELP TO USE LOGGER IN EVERY ROUTES
+// app.use([logger,authorize]);  //THIS WILL HELP TO USE LOGGER IN EVERY ROUTES
 app.get('/about',(req,res)=>{
-  return res.send('About page');
+   res.send('About page');
 })
 app.get('/api/products',(req,res)=>{
   return res.send('Products');
