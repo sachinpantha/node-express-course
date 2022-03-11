@@ -131,7 +131,7 @@ app.get('/api/v1/query',(req,res)=>{
     // console.log(req.query);  //QUERY IN URL
     // res.send('Hello Query string');
     const {search,limit}=req.query;
-    let SortedProducts=[...products]
+    let SortedProducts=[...products]  //Spreading JSON
     if(search){
         SortedProducts=SortedProducts.filter((product)=>{
             return product.name.startsWith(search); //Searching Data in API
@@ -139,6 +139,9 @@ app.get('/api/v1/query',(req,res)=>{
     }
     if(limit){
         SortedProducts=SortedProducts.slice(0,Number(limit));
+    }
+    if (SortedProducts.length<1) {
+        res.status(200).send('No any products matched to your search')
     }
     res.status(200).json(SortedProducts);
 })
