@@ -95,59 +95,104 @@
 
 const express = require("express");
 const app = express();
-const { products } = require("./data");
-app.get("/", (req, res) => {
-  res.send('<h1>Home Page</h1><a href="/api/products/:ProductID">Products</a>');
-});
-app.get("/api/products", (req, res) => {
-  const newProducts = products.map((product) => {
-    const { name, id, image } = product;
-    return { name, id, image }; //THIS IS WHEN YOU FILTER OUT THE JSON
-  });
-  res.json(newProducts);
-});
-app.get("/api/products/:ProductID", (req, res) => {
-  console.log(req);
-  // console.log(req.params); (OPTIONAL)
+// const { products } = require("./data");
+// app.get("/", (req, res) => {
+//   res.send('<h1>Home Page</h1><a href="/api/products/:ProductID">Products</a>');
+// });
+// app.get("/api/products", (req, res) => {
+//   const newProducts = products.map((product) => {
+//     const { name, id, image } = product;
+//     return { name, id, image }; //THIS IS WHEN YOU FILTER OUT THE JSON
+//   });
+//   res.json(newProducts);
+// });
+// app.get("/api/products/:ProductID", (req, res) => {
+//   console.log(req);
+//   // console.log(req.params); (OPTIONAL)
 
-  const {ProductID}=req.params;
-  const singleProduct = products.find((product) => product.id === Number(ProductID));
-  if (!singleProduct) {
-    return res.status(404).send('The product never existed vro');
-  }
-  res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
-}); 
-// app.get('/api/products/:productID/reviews/:reviewID',(req,res)=>{
-//     console.log(req.params);
-//     res.send('Hello HELlO');
+//   const {ProductID}=req.params;
+//   const singleProduct = products.find((product) => product.id === Number(ProductID));
+//   if (!singleProduct) {
+//     return res.status(404).send('The product never existed vro');
+//   }
+//   res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
+// }); 
+// // app.get('/api/products/:productID/reviews/:reviewID',(req,res)=>{
+// //     console.log(req.params);
+// //     res.send('Hello HELlO');
+// // })
+
+// // (((((((((((Route params help to access dynamically)))))))))))
+// app.get('/profile/:id',(req,res)=>{
+//     console.log(req.params.id);
+//     res.send('you requested '+ req.params.id);
 // })
+// app.get('/api/v1/query',(req,res)=>{
+//     // console.log(req.query);  //QUERY IN URL
+//     // res.send('Hello Query string');
+//     const {search,limit}=req.query;
+//     let SortedProducts=[...products]  //Spreading JSON
+//     if(search){
+//         SortedProducts=SortedProducts.filter((product)=>{
+//             return product.name.startsWith(search); //Searching Data in API
+//         })
+//     }
+//     if(limit){
+//         SortedProducts=SortedProducts.slice(0,Number(limit));
+//     }
+//     if (SortedProducts.length<1) {
+//         return res.status(200).json({success:true,data:[]})
+//       // res.status(200).send('No any products matched to your search')
+//     }
+//     return res.status(200).json(SortedProducts);
+// })
+// // ((((((((((()))))))))))
 
-// (((((((((((Route params help to access dynamically)))))))))))
-app.get('/profile/:id',(req,res)=>{
-    console.log(req.params.id);
-    res.send('you requested '+ req.params.id);
+
+
+                          //MIDDLEWARE
+
+//MIDDLEWARE IS A TIME BETWEEN WHEN SERVER GETS A REQUEST AND IT SENDS A RESPONSE
+
+// app.get('/',(req,res)=>{
+//   res.send('Home page');
+//   const method=req.method;
+//   const url=req.url;
+//   const date= new Date().getFullYear();
+//   console.log(method,url,date);
+// })
+// app.get('/about',(req,res)=>{
+//   res.send('About page');
+// })
+// app.listen(5000, (req, res) => {
+//   console.log("Server is listening to port 5000");
+// });
+
+// const logger=(req,res,next)=>{
+//   const method=req.method;   //FOR FIRST EXAMPLE
+//   const url=req.url;
+//   const date= new Date().getFullYear();
+//   console.log(method,url,date);
+//   // res.send('Testing');
+//   next()
+// }
+const logger=require('./logger');
+const authorize=require('./authorize');
+app.get('/',(req,res)=>{
+  return res.send('Home page');
 })
-app.get('/api/v1/query',(req,res)=>{
-    // console.log(req.query);  //QUERY IN URL
-    // res.send('Hello Query string');
-    const {search,limit}=req.query;
-    let SortedProducts=[...products]  //Spreading JSON
-    if(search){
-        SortedProducts=SortedProducts.filter((product)=>{
-            return product.name.startsWith(search); //Searching Data in API
-        })
-    }
-    if(limit){
-        SortedProducts=SortedProducts.slice(0,Number(limit));
-    }
-    if (SortedProducts.length<1) {
-        return res.status(200).json({success:true,data:[]})
-      // res.status(200).send('No any products matched to your search')
-    }
-    return res.status(200).json(SortedProducts);
+app.use([logger,authorize]);  //THIS WILL HELP TO USE LOGGER IN EVERY ROUTES
+app.get('/about',(req,res)=>{
+  return res.send('About page');
 })
-// ((((((((((()))))))))))
+app.get('/api/products',(req,res)=>{
+  return res.send('Products');
+})
+app.get('/api/items',(req,res)=>{
+  return res.send('items');
+})
 app.listen(5000, (req, res) => {
   console.log("Server is listening to port 5000");
 });
 
+//WE CAN RELATE MIDDLEWARE AS A REACT COMPONENT
