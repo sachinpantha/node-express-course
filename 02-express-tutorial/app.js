@@ -141,9 +141,10 @@ app.get('/api/v1/query',(req,res)=>{
         SortedProducts=SortedProducts.slice(0,Number(limit));
     }
     if (SortedProducts.length<1) {
-        res.status(200).send('No any products matched to your search')
+        return res.status(200).json({success:true,data:[]})
+      // res.status(200).send('No any products matched to your search')
     }
-    res.status(200).json(SortedProducts);
+    return res.status(200).json(SortedProducts);
 })
 // ((((((((((()))))))))))
 app.listen(5000, (req, res) => {
