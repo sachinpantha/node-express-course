@@ -90,12 +90,9 @@
 // //   console.log("Server is listening to port 5000");
 // // });
 
-
-
-
-const express = require("express");
-const app = express();
-const { products } = require("./data");
+// const express = require("express");
+// const app = express();
+// const { products } = require("./data");
 // app.get("/", (req, res) => {
 //   res.send('<h1>Home Page</h1><a href="/api/products/:ProductID">Products</a>');
 // });
@@ -116,7 +113,7 @@ const { products } = require("./data");
 //     return res.status(404).send('The product never existed vro');
 //   }
 //   res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
-// }); 
+// });
 // // app.get('/api/products/:productID/reviews/:reviewID',(req,res)=>{
 // //     console.log(req.params);
 // //     res.send('Hello HELlO');
@@ -148,9 +145,7 @@ const { products } = require("./data");
 // })
 // // ((((((((((()))))))))))
 
-
-
-                          //MIDDLEWARE
+//MIDDLEWARE
 
 //MIDDLEWARE IS A TIME BETWEEN WHEN SERVER GETS A REQUEST AND IT SENDS A RESPONSE
 
@@ -176,23 +171,46 @@ const { products } = require("./data");
 //   // res.send('Testing');
 //   next()
 // }
-const logger=require('./logger');
-const authorize=require('./authorize');
-app.get('/',(req,res)=>{
-  return res.send('Home page');
-})
-// app.use([logger,authorize]);  //THIS WILL HELP TO USE LOGGER IN EVERY ROUTES
-app.get('/about',(req,res)=>{
-   res.send('About page');
-})
-app.get('/api/products',(req,res)=>{
-  return res.send('Products');
-})
-app.get('/api/items',(req,res)=>{
-  return res.send('items');
+
+//WE CAN RELATE MIDDLEWARE AS A REACT COMPONENT
+
+// const logger=require('./logger');
+// const authorize=require('./authorize');
+// app.get('/',(req,res)=>{
+//   return res.send('Home page');
+// })
+// // app.use([logger,authorize]);  //THIS WILL HELP TO USE LOGGER IN EVERY ROUTES
+// app.get('/about',(req,res)=>{
+//    res.send('About page');
+// })
+// app.get('/api/products',(req,res)=>{
+//   return res.send('Products');
+// })
+// app.get('/api/items',(req,res)=>{
+//   return res.send('items');
+// })
+// app.listen(5000, (req, res) => {
+//   console.log("Server is listening to port 5000");
+// });
+
+//GET METHOD
+const express = require("express");
+const app = express();
+let { people } = require("./data");
+app.use(express.urlencoded({ extended: false }))
+app.use(express.static('./methods-public'));
+app.get("/api/people", (req, res) => {
+  res.status(200).json({ success: true, data: people });
+});
+app.post('/login',(req,res)=>{
+   const {name}=req.body
+   if(name){
+       return res.status(200).send(`Welcome ${name}`);
+   }
+   else{
+       res.status(401).send('Please provide credentials');
+   }
 })
 app.listen(5000, (req, res) => {
   console.log("Server is listening to port 5000");
 });
-
-//WE CAN RELATE MIDDLEWARE AS A REACT COMPONENT
