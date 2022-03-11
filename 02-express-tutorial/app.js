@@ -1,94 +1,96 @@
-// const http=require('http');
-// const {readFileSync}=require('fs');
-// //LETS GRAB ALL THE NECESSARY FILES
-// const homepage = readFileSync('./navbar-app/index.html');
-// const homeStyles = readFileSync('./navbar-app/styles.css');
-// const homeImage = readFileSync('./navbar-app/logo.svg');
-// const homeLogic = readFileSync('./navbar-app/browser-app.js');
+// // const http=require('http');
+// // const {readFileSync}=require('fs');
+// // //LETS GRAB ALL THE NECESSARY FILES
+// // const homepage = readFileSync('./navbar-app/index.html');
+// // const homeStyles = readFileSync('./navbar-app/styles.css');
+// // const homeImage = readFileSync('./navbar-app/logo.svg');
+// // const homeLogic = readFileSync('./navbar-app/browser-app.js');
 
-// const server=http.createServer((req,res)=>{
-//     const url=req.url;
-//     if(url==='/'){
-//         res.writeHead(200,{'content-type':'text/html'});
-//         res.end(homepage);
-//     }
-//     else if(url==='/about'){
-//         res.writeHead(200,{'content-type':'text/html'});
-//         res.end('<h1>About page</h1>');
-//     }
-//     //TAKING STYLESHEETS
-//     else if(url==='/styles.css'){
-//         res.writeHead(200,{'content-type':'text/css'});
-//         res.end(homeStyles)
-//     }
-//     //CSS FILES MUST BE TESTED EXPLICITLY IN ORDER TO RENDER IN DOM
-//     else if(url==='/logo.svg'){
-//         res.writeHead(200,{'content-type':'image/svg+xml'});
-//         res.end(homeImage)
-//     }
-//     else if(url==='/browser-app.js'){
-//         res.writeHead(200,{'content-type':'text/javascript'});
-//         res.end(homeLogic)
-//     }
-//     else{
-//         //Sending 404 status code if not found
-//         res.writeHead(404,{'content-type':'text/html'});
-//         res.end('<h1>Page not Found sed</h1>');
-//     }
-// }).listen(5000);
+// // const server=http.createServer((req,res)=>{
+// //     const url=req.url;
+// //     if(url==='/'){
+// //         res.writeHead(200,{'content-type':'text/html'});
+// //         res.end(homepage);
+// //     }
+// //     else if(url==='/about'){
+// //         res.writeHead(200,{'content-type':'text/html'});
+// //         res.end('<h1>About page</h1>');
+// //     }
+// //     //TAKING STYLESHEETS
+// //     else if(url==='/styles.css'){
+// //         res.writeHead(200,{'content-type':'text/css'});
+// //         res.end(homeStyles)
+// //     }
+// //     //CSS FILES MUST BE TESTED EXPLICITLY IN ORDER TO RENDER IN DOM
+// //     else if(url==='/logo.svg'){
+// //         res.writeHead(200,{'content-type':'image/svg+xml'});
+// //         res.end(homeImage)
+// //     }
+// //     else if(url==='/browser-app.js'){
+// //         res.writeHead(200,{'content-type':'text/javascript'});
+// //         res.end(homeLogic)
+// //     }
+// //     else{
+// //         //Sending 404 status code if not found
+// //         res.writeHead(404,{'content-type':'text/html'});
+// //         res.end('<h1>Page not Found sed</h1>');
+// //     }
+// // }).listen(5000);
 
-//EXPRESS INFO
-// const express= require('express');
-// const app=express()
-// app.get('/',(req,res)=>{
-//  res.status(200).send('Render home page here');
-// })
-// app.get('/about',(req,res)=>{
-//     res.status(200).send('Render About page here')
-// })
-// //RETURNING 404
-// app.all('*',(req,res)=>{
-//     res.status(404).send(`<h1>Error 404 Page not found sed</h1>`);
-// })
-// app.listen(5000,()=>{
-//     console.log('server is listenting to port 5000');
-// });
-
-//HANDLING NAVBAR APP VIA EXPRESS-JS
-// const express=require('express');
-// const path=require('path');
-// const app=express();
-// app.use(express.static('./public'));  //PUT ALL STATIC CSS LOGO FILE OVER HERE BY CREATING FOLDER
+// //EXPRESS INFO
+// // const express= require('express');
+// // const app=express()
 // // app.get('/',(req,res)=>{
-// //     res.sendFile(path.resolve(__dirname,'./navbar-app/index.html'))
-// // })   //HTML FILE IS ALSO A STATIC FILE
-// app.all('*',(req,res)=>{
-//     res.status(404).send('Resource not found');
-// })
-// app.listen(5000,()=>{
-//     console.log('Server is listening to port 5000');
-// })
+// //  res.status(200).send('Render home page here');
+// // })
+// // app.get('/about',(req,res)=>{
+// //     res.status(200).send('Render About page here')
+// // })
+// // //RETURNING 404
+// // app.all('*',(req,res)=>{
+// //     res.status(404).send(`<h1>Error 404 Page not found sed</h1>`);
+// // })
+// // app.listen(5000,()=>{
+// //     console.log('server is listenting to port 5000');
+// // });
 
-// const express = require("express");
-// const app = express();
-// const { products } = require("./data");
-// app.get("/", (req, res) => {
-//   res.send('<h1>Home Page</h1><a href="/api/products">Products</a>');
-// });
-// app.get("/api/products", (req, res) => {
-//   const newProducts = products.map((product) => {
-//     const { name, id, image } = product;
-//     return { name, id, image }; //THIS IS WHEN YOU FILTER OUT THE JSON
-//   });
-//   res.json(newProducts);
-// });
-// app.get("/api/products/1", (req, res) => {
-//   const singleProduct = products.find((product) => product.id == 1);
-//   res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
-// });
-// app.listen(5000, (req, res) => {
-//   console.log("Server is listening to port 5000");
-// });
+// //HANDLING NAVBAR APP VIA EXPRESS-JS
+// // const express=require('express');
+// // const path=require('path');
+// // const app=express();
+// // app.use(express.static('./public'));  //PUT ALL STATIC CSS LOGO FILE OVER HERE BY CREATING FOLDER
+// // // app.get('/',(req,res)=>{
+// // //     res.sendFile(path.resolve(__dirname,'./navbar-app/index.html'))
+// // // })   //HTML FILE IS ALSO A STATIC FILE
+// // app.all('*',(req,res)=>{
+// //     res.status(404).send('Resource not found');
+// // })
+// // app.listen(5000,()=>{
+// //     console.log('Server is listening to port 5000');
+// // })
+
+// // const express = require("express");
+// // const app = express();
+// // const { products } = require("./data");
+// // app.get("/", (req, res) => {
+// //   res.send('<h1>Home Page</h1><a href="/api/products">Products</a>');
+// // });
+// // app.get("/api/products", (req, res) => {
+// //   const newProducts = products.map((product) => {
+// //     const { name, id, image } = product;
+// //     return { name, id, image }; //THIS IS WHEN YOU FILTER OUT THE JSON
+// //   });
+// //   res.json(newProducts);
+// // });
+// // app.get("/api/products/1", (req, res) => {
+// //   const singleProduct = products.find((product) => product.id == 1);
+// //   res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
+// // });
+// // app.listen(5000, (req, res) => {
+// //   console.log("Server is listening to port 5000");
+// // });
+
+
 
 
 const express = require("express");
@@ -114,7 +116,7 @@ app.get("/api/products/:ProductID", (req, res) => {
     return res.status(404).send('The product never existed vro');
   }
   res.json(singleProduct);   //FINDING A PARTICULAR PRODUCT BY ID
-});
+}); 
 // app.get('/api/products/:productID/reviews/:reviewID',(req,res)=>{
 //     console.log(req.params);
 //     res.send('Hello HELlO');
@@ -125,7 +127,23 @@ app.get('/profile/:id',(req,res)=>{
     console.log(req.params.id);
     res.send('you requested '+ req.params.id);
 })
+app.get('/api/v1/query',(req,res)=>{
+    // console.log(req.query);  //QUERY IN URL
+    // res.send('Hello Query string');
+    const {search,limit}=req.query;
+    let SortedProducts=[...products]
+    if(search){
+        SortedProducts=SortedProducts.filter((product)=>{
+            return product.name.startsWith(search); //Searching Data in API
+        })
+    }
+    if(limit){
+        SortedProducts=SortedProducts.slice(0,Number(limit));
+    }
+    res.status(200).json(SortedProducts);
+})
 // ((((((((((()))))))))))
 app.listen(5000, (req, res) => {
   console.log("Server is listening to port 5000");
 });
+
