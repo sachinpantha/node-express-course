@@ -197,36 +197,49 @@
 const express = require("express");
 const app = express();
 let { people } = require("./data");
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static('./methods-public'));
-app.get("/api/people", (req, res) => {
-  res.status(200).json({ success: true, data: people });
-});
-app.post('/api/people',(req,res)=>{
-  const {name}=req.body;
-  if(!name){
-    return res.status(400).send('Please provide the value');
+app.use(express.static("./methods-public"));
+app.post("/login", (req, res) => {
+  const { name } = req.body;
+  if (name) {
+    return res.status(200).send(`Welcome ${name}`);
+  } else {
+    res.status(401).send("Please provide credentials");
   }
-  res.status(201).json({success:true,person:name})
-})
-app.post('/login',(req,res)=>{
-   const {name}=req.body
-   if(name){
-       return res.status(200).send(`Welcome ${name}`);
-   }
-   else{
-       res.status(401).send('Please provide credentials');
-   }
-})
-
-//TESTING APIS VIA POSTMAN USING PUT METHOD
-app.put('/api/people/:id',(req,res)=>{
-  const {id}=req.params;
-  const {name}=req.body;
-  console.log(id,name);
-  res.send('Test Successfull');
-})
-app.listen(5000, (req, res) => {
-  console.log("Server is listening to port 5000");
 });
+// app.get("/api/people", (req, res) => {
+//   res.status(200).json({ success: true, data: people });
+// });
+// app.post("/api/people", (req, res) => {
+//   const { name } = req.body;
+//   if (!name) {
+//     return res.status(400).send("Please provide the value");
+//   }
+//   res.status(201).json({ success: true, person: name });
+// });
+
+// //TESTING APIS VIA POSTMAN USING PUT METHOD
+// app.put("/api/people/:id", (req, res) => {
+//   const { id } = req.params;
+//   const { name } = req.body;
+//   const person = people.find((person) => person.id === Number(id));
+//   if (!person) {
+//     return res.status(400).json({success:false,msg:`No person with id ${id}`});
+//   }
+//   const newPeople=people.map((person)=>{
+//     if(person.id===Number(id)){
+//       person.name=name;
+//     }
+//     return person;
+//   })
+//   res.status(200).json({success:true, data:newPeople});
+// });
+// app.delete('/api/people/:id',(req,res)=>{
+//   const person=people.find((person)=>person.id===Number(req.params.id))
+//   if(!person){
+//     return res.status(400).json({sucess:false,msg:`no person with id ${req.params.id}`})
+//   }
+//   const newPeople=people.filter((person)=>person.id!==Number(req.params.id));
+//   return res.status(200).json({success:true,data:newPeople});    //TESTING DELETE VIA POSTMAN
+// })
