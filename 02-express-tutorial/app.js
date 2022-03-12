@@ -219,6 +219,14 @@ app.post('/login',(req,res)=>{
        res.status(401).send('Please provide credentials');
    }
 })
+
+//TESTING APIS VIA POSTMAN USING PUT METHOD
+app.put('/api/people/:id',(req,res)=>{
+  const {id}=req.params;
+  const {name}=req.body;
+  console.log(id,name);
+  res.send('Test Successfull');
+})
 app.listen(5000, (req, res) => {
   console.log("Server is listening to port 5000");
 });
